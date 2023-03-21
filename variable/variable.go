@@ -41,6 +41,7 @@ var (
 // 类型推断，根据右值推断类型进行初始化
 var _name = "张三"
 var _age = 18
+var _a, _b = 1, "_b"
 
 // 短变量声明，仅在函数内部使用
 func shortVariableDeclaration() {

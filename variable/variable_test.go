@@ -20,6 +20,8 @@ func TestVariableDefault(t *testing.T) {
 func TestTypeInference(t *testing.T) {
 	fmt.Println("_name = ", _name)
 	fmt.Println("_age = ", _age)
+	fmt.Println("_a = ", _a)
+	fmt.Println("_b = ", _b)
 }
 
 // 测试短变量声明
