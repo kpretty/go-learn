@@ -57,3 +57,51 @@ func sliceEssence() {
 	fmt.Printf("slice1: value %v\t address %p\t len %d\t cap %d\n", s2, s2, len(s2), cap(s2))
 	fmt.Printf("slice1: value %v\t address %p\t len %d\t cap %d\n", s3, s3, len(s3), cap(s3))
 }
+
+// 向切片添加元素
+func appendSlice() {
+	s1 := make([]int, 0)
+	fmt.Printf("slice1: value %v\t address %p\t size %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+	// 为什么append有返回值
+	// 因为切片存在扩容机制，调用 append 可能会返回原切片指向的底层数组
+	// 若触发了扩容则指向新的底层数组，因此有返回值
+	s1 = append(s1, 0)
+	fmt.Printf("slice1: value %v\t address %p\t size %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+	s1 = append(s1, 1)
+	fmt.Printf("slice1: value %v\t address %p\t size %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+	s1 = append(s1, 1)
+	fmt.Printf("slice1: value %v\t address %p\t size %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+	s1 = append(s1, 1)
+	fmt.Printf("slice1: value %v\t address %p\t size %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+	// append 可以帮助我们做初始化，即可以给 append 传入一个未赋值的切片
+	var s2 []int
+	// append 可以一次插入多个元素
+	s2 = append(s2, 0, 1, 2, 3, 4, 5)
+	fmt.Printf("slice1: value %v\t address %p\t size %d\t cap %d\n", s2, s2, len(s2), cap(s2))
+}
+
+// 切片复制
+func copySlice() {
+	// 直接复制是浅拷贝，使用内置函数 copy 实现深拷贝
+	s1 := []int{1, 2, 3, 4, 5}
+	s2 := make([]int, 5)
+	// copy 需要切片已经被初始化，否则无法拷贝，注意与 append 区分
+	copy(s2, s1)
+	s2[0] = 0
+	fmt.Printf("slice1: value %v\t address %p\t len %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+	fmt.Printf("slice1: value %v\t address %p\t len %d\t cap %d\n", s2, s2, len(s2), cap(s2))
+}
+
+// 删除切片元素
+func deleteSlice() {
+	// go 没有内置删除切片的方法，但是可以通过对切片进行切片来实现
+	s1 := []int{1, 2, 3, 4, 5}
+	// 删除索引位置为 2 的
+	s1 = append(s1[:2], s1[3:]...)
+	fmt.Printf("slice1: value %v\t address %p\t len %d\t cap %d\n", s1, s1, len(s1), cap(s1))
+}
+
+// 实现删除切片
+func myDelete(src []int, index int) []int {
+	return append(src[:index], src[index+1:]...)
+}
